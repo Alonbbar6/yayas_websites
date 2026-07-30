@@ -1,0 +1,6 @@
+# Walks with Yaya — allow all crawlers
+User-agent: *
+Allow: /
+
+# 👉 REPLACE the domain below with your real site URL if you use a custom domain.
+Sitemap: https://alonbbar6.github.io/yayas_websites/sitemap.xml
