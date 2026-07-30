@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0f1f3d" />
+<title>Walks with Yaya — Cinematic Dog Walking & Pet Care</title>
+<meta name="description" content="Insured, GPS-tracked, background-checked dog walking and pet care. Every walk ends with a photo Pup Report Card. Book a meet & greet with Yaya today." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%BE%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+
+<!-- ===== Custom cursor ===== -->
+<div class="cursor" data-cursor></div>
+<div class="cursor-dot" data-cursor-dot></div>
+
+<!-- ===== Preloader ===== -->
+<div class="preloader" data-preloader>
+  <div class="preloader__paws">
+    <span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span>
+  </div>
+  <p class="preloader__text">Fetching the leash…</p>
+</div>
+
+<!-- ===== Progress bar ===== -->
+<div class="scroll-progress" data-progress></div>
+
+<!-- ===== Navigation ===== -->
+<header class="nav" data-nav>
+  <a href="#top" class="nav__brand" data-cursor-hover>
+    <span class="nav__logo">🐾</span>
+    <span class="nav__name">Walks with <em>Yaya</em></span>
+  </a>
+  <nav class="nav__links" data-nav-links>
+    <a href="#about" data-cursor-hover>About</a>
+    <a href="#services" data-cursor-hover>Services</a>
+    <a href="#how" data-cursor-hover>How it works</a>
+    <a href="#report" data-cursor-hover>Report Card</a>
+    <a href="#pricing" data-cursor-hover>Pricing</a>
+    <a href="#book" class="nav__cta" data-cursor-hover>Book a Walk</a>
+  </nav>
+  <button class="nav__toggle" data-nav-toggle aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<main id="top">
+
+<!-- ===== HERO ===== -->
+<section class="hero" data-hero>
+  <div class="hero__sky" data-parallax="0.2"></div>
+  <div class="hero__sun"></div>
+  <div class="hero__clouds">
+    <span class="cloud cloud--1"></span>
+    <span class="cloud cloud--2"></span>
+    <span class="cloud cloud--3"></span>
+  </div>
+  <div class="hero__hills" data-parallax="0.35">
+    <svg viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,224 C240,160 480,288 720,240 C960,192 1200,256 1440,208 L1440,320 L0,320 Z"></path>
+    </svg>
+  </div>
+  <div class="hero__hills hero__hills--front" data-parallax="0.55">
+    <svg viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,272 C300,208 520,304 780,272 C1040,240 1240,296 1440,256 L1440,320 L0,320 Z"></path>
+    </svg>
+  </div>
+
+  <div class="hero__content">
+    <p class="hero__eyebrow" data-reveal>🐾 Insured · Certified · Tail-wag guaranteed</p>
+    <h1 class="hero__title">
+      <span class="line" data-hero-line>Where every walk</span>
+      <span class="line" data-hero-line>is an <em>adventure.</em></span>
+    </h1>
+    <p class="hero__sub" data-reveal>
+      Loving, GPS-tracked dog walking &amp; pet care with Yaya — and a photo
+      <strong>Pup Report Card</strong> after every single outing.
+    </p>
+    <div class="hero__actions" data-reveal>
+      <a href="#book" class="btn btn--primary" data-cursor-hover>Book a Meet &amp; Greet</a>
+      <a href="#report" class="btn btn--ghost" data-cursor-hover>See a Report Card →</a>
+    </div>
+    <div class="hero__stats" data-reveal>
+      <div><b data-count="6">0</b><span>years of tails</span></div>
+      <div><b data-count="1200" data-suffix="+">0</b><span>walks logged</span></div>
+      <div><b data-count="8400" data-suffix="mi">0</b><span>happy miles</span></div>
+    </div>
+  </div>
+
+  <!-- Walking dog silhouette -->
+  <div class="hero__walker" data-parallax="0.15">
+    <div class="walker">
+      <span class="walker__person">🚶‍♀️</span>
+      <span class="walker__dog">🐕</span>
+    </div>
+    <div class="paw-trail" data-paw-trail></div>
+  </div>
+
+  <a href="#about" class="hero__scroll" data-cursor-hover>
+    <span class="mouse"></span>
+    <em>scroll</em>
+  </a>
+</section>
+
+<!-- ===== TRUST MARQUEE ===== -->
+<section class="marquee" aria-label="Why owners trust Yaya">
+  <div class="marquee__track">
+    <span>🛡️ Fully Insured &amp; Bonded</span><span>📍 Live GPS Tracking</span>
+    <span>📸 Photo Report Cards</span><span>❤️ Pet First-Aid Certified</span>
+    <span>🔒 Background Checked</span><span>🐕 Small Groups Only</span>
+    <span>🕒 Flexible Scheduling</span><span>🏡 Trusted with Your Keys</span>
+    <span aria-hidden="true">🛡️ Fully Insured &amp; Bonded</span><span aria-hidden="true">📍 Live GPS Tracking</span>
+    <span aria-hidden="true">📸 Photo Report Cards</span><span aria-hidden="true">❤️ Pet First-Aid Certified</span>
+    <span aria-hidden="true">🔒 Background Checked</span><span aria-hidden="true">🐕 Small Groups Only</span>
+    <span aria-hidden="true">🕒 Flexible Scheduling</span><span aria-hidden="true">🏡 Trusted with Your Keys</span>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="about section" id="about">
+  <div class="about__media" data-reveal>
+    <div class="about__frame">
+      <div class="about__photo" data-tilt>
+        <div class="about__glow"></div>
+        <span class="about__emoji">👩‍🦱🐩</span>
+        <div class="about__badge">
+          <b>Yaya</b><span>Your dog's favourite human</span>
+        </div>
+      </div>
+    </div>
+    <span class="about__blob"></span>
+  </div>
+  <div class="about__body">
+    <p class="kicker" data-reveal>Meet your walker</p>
+    <h2 class="h2" data-reveal>Hi, I'm Yaya — and I speak fluent <em>dog.</em></h2>
+    <p data-reveal>
+      What started as walking my neighbours' pups grew into a calling. I treat every
+      dog like my own: patient with the shy ones, playful with the wild ones, and gentle
+      with the seniors. No overcrowded packs, no rushing — just real, joyful time outdoors.
+    </p>
+    <ul class="about__list">
+      <li data-reveal><span>🎓</span> Certified in canine first-aid &amp; CPR</li>
+      <li data-reveal><span>🐾</span> Small groups of 3 dogs max, matched by energy</li>
+      <li data-reveal><span>💬</span> You get a message &amp; photos before I even leave</li>
+      <li data-reveal><span>🌧️</span> Rain or shine — with towel-offs included</li>
+    </ul>
+    <a href="#book" class="btn btn--primary" data-reveal data-cursor-hover>Say hello to Yaya</a>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section class="services section" id="services">
+  <header class="section__head">
+    <p class="kicker" data-reveal>Tail-wagging services</p>
+    <h2 class="h2" data-reveal>Everything your best friend needs</h2>
+    <p class="section__lead" data-reveal>Mix and match to fit your pup's routine. Every service includes a photo report card.</p>
+  </header>
+  <div class="services__grid">
+    <article class="svc" data-reveal data-tilt data-cursor-hover>
+      <div class="svc__icon">🦮</div>
+      <h3>Solo Walks</h3>
+      <p>One-on-one attention for pups who prefer their own space, are reactive, or in training.</p>
+      <span class="svc__price">from $28 · 45 min</span>
+    </article>
+    <article class="svc svc--feature" data-reveal data-tilt data-cursor-hover>
+      <div class="svc__tag">Most loved</div>
+      <div class="svc__icon">🐕‍🦺</div>
+      <h3>Group Adventures</h3>
+      <p>Small, energy-matched packs romp through the park and make furry friends. Pure joy.</p>
+      <span class="svc__price">from $24 · 60 min</span>
+    </article>
+    <article class="svc" data-reveal data-tilt data-cursor-hover>
+      <div class="svc__icon">🐶</div>
+      <h3>Puppy Drop-Ins</h3>
+      <p>Potty breaks, playtime and cuddles for little ones who can't hold it all day.</p>
+      <span class="svc__price">from $20 · 30 min</span>
+    </article>
+    <article class="svc" data-reveal data-tilt data-cursor-hover>
+      <div class="svc__icon">🏡</div>
+      <h3>Pet Sitting</h3>
+      <p>Feeding, fresh water, meds and companionship while you're away for the day.</p>
+      <span class="svc__price">from $35 · visit</span>
+    </article>
+    <article class="svc" data-reveal data-tilt data-cursor-hover>
+      <div class="svc__icon">🌙</div>
+      <h3>Overnight Care</h3>
+      <p>Your pup keeps their routine and their bed while you sleep easy on your trip.</p>
+      <span class="svc__price">from $75 · night</span>
+    </article>
+    <article class="svc" data-reveal data-tilt data-cursor-hover>
+      <div class="svc__icon">🥾</div>
+      <h3>Trail Hikes</h3>
+      <p>Longer wilderness adventures for high-energy dogs who need to truly stretch their legs.</p>
+      <span class="svc__price">from $45 · 90 min</span>
+    </article>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section class="how section" id="how">
+  <header class="section__head">
+    <p class="kicker" data-reveal>Simple &amp; stress-free</p>
+    <h2 class="h2" data-reveal>How it works</h2>
+  </header>
+  <ol class="steps">
+    <li class="step" data-reveal>
+      <div class="step__num">01</div>
+      <div class="step__body">
+        <h3>🤝 Free meet &amp; greet</h3>
+        <p>We meet you and your pup, learn their quirks, routines, and favourite belly-rub spot.</p>
+      </div>
+    </li>
+    <li class="step" data-reveal>
+      <div class="step__num">02</div>
+      <div class="step__body">
+        <h3>📅 Book your schedule</h3>
+        <p>One-off or recurring — pick times that suit you. Reschedule anytime in a tap.</p>
+      </div>
+    </li>
+    <li class="step" data-reveal>
+      <div class="step__num">03</div>
+      <div class="step__body">
+        <h3>📍 We walk &amp; track</h3>
+        <p>Yaya arrives, sends a "we're off!" text, and your walk is GPS-tracked start to finish.</p>
+      </div>
+    </li>
+    <li class="step" data-reveal>
+      <div class="step__num">04</div>
+      <div class="step__body">
+        <h3>📸 Get the report card</h3>
+        <p>Photos, route map, potty &amp; water log land in your inbox before we've said goodbye.</p>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<!-- ===== REPORT CARD SHOWCASE ===== -->
+<section class="report section" id="report">
+  <div class="report__text">
+    <p class="kicker" data-reveal>The Yaya difference</p>
+    <h2 class="h2" data-reveal>Every walk ends with a <em>Pup Report Card</em></h2>
+    <p data-reveal>
+      No wondering how your dog's day went. After each outing you get a beautifully
+      simple recap — the moments, the map, the mood. It's the closest thing to
+      walking them yourself.
+    </p>
+    <ul class="report__feats">
+      <li data-reveal><b>📸 Candid photos</b> of your pup living their best life</li>
+      <li data-reveal><b>🗺️ Route &amp; distance</b> from live GPS tracking</li>
+      <li data-reveal><b>💧 Potty &amp; water log</b> so you know they're comfy</li>
+      <li data-reveal><b>💬 A note from Yaya</b> on how they did today</li>
+    </ul>
+  </div>
+
+  <div class="report__phone" data-reveal data-tilt>
+    <div class="phone">
+      <div class="phone__notch"></div>
+      <div class="phone__screen">
+        <div class="rc">
+          <div class="rc__head">
+            <div class="rc__avatar">🐕</div>
+            <div>
+              <b>Biscuit's Walk</b>
+              <span>Today · 4:12 PM</span>
+            </div>
+            <div class="rc__mood">😍</div>
+          </div>
+          <div class="rc__photo">
+            <span class="rc__paw">🐾</span>
+            <span class="rc__shot">📷</span>
+          </div>
+          <div class="rc__map">
+            <svg viewBox="0 0 260 90" aria-hidden="true">
+              <path class="rc__route" d="M12,70 C60,10 110,90 150,40 S230,20 250,55" fill="none"/>
+              <circle class="rc__start" cx="12" cy="70" r="5"/>
+              <circle class="rc__end" cx="250" cy="55" r="5"/>
+            </svg>
+          </div>
+          <div class="rc__stats">
+            <div><b>2.4 mi</b><span>distance</span></div>
+            <div><b>58 min</b><span>duration</span></div>
+            <div><b>💧 2</b><span>water</span></div>
+            <div><b>💩 1</b><span>potty</span></div>
+          </div>
+          <p class="rc__note">"Biscuit made a new golden-retriever bestie and did zoomies for 5 straight minutes. Big happy pup today! 🥰"</p>
+        </div>
+      </div>
+    </div>
+    <span class="report__spark report__spark--1">✨</span>
+    <span class="report__spark report__spark--2">🐾</span>
+    <span class="report__spark report__spark--3">❤️</span>
+  </div>
+</section>
+
+<!-- ===== GALLERY ===== -->
+<section class="gallery section">
+  <header class="section__head">
+    <p class="kicker" data-reveal>The happy tails wall</p>
+    <h2 class="h2" data-reveal>Clients in their natural habitat</h2>
+  </header>
+  <div class="gallery__grid">
+    <figure class="gcard g1" data-reveal data-cursor-hover><span>🐕</span><figcaption>Max · zoomie champion</figcaption></figure>
+    <figure class="gcard g2" data-reveal data-cursor-hover><span>🐩</span><figcaption>Coco · park diva</figcaption></figure>
+    <figure class="gcard g3" data-reveal data-cursor-hover><span>🐶</span><figcaption>Biscuit · ball obsessed</figcaption></figure>
+    <figure class="gcard g4" data-reveal data-cursor-hover><span>🦴</span><figcaption>Treats earned daily</figcaption></figure>
+    <figure class="gcard g5" data-reveal data-cursor-hover><span>🐕‍🦺</span><figcaption>Rey · gentle giant</figcaption></figure>
+    <figure class="gcard g6" data-reveal data-cursor-hover><span>🐾</span><figcaption>Muddy paws welcome</figcaption></figure>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="quotes section">
+  <header class="section__head">
+    <p class="kicker" data-reveal>Wagging reviews</p>
+    <h2 class="h2" data-reveal>Loved by dogs &amp; their humans</h2>
+  </header>
+  <div class="quotes__viewport">
+    <div class="quotes__track" data-quotes>
+      <blockquote class="quote">
+        <div class="quote__stars">★★★★★</div>
+        <p>"Yaya sends the sweetest report cards — I look forward to them more than my own texts. My anxious rescue actually pulls toward the door when she arrives."</p>
+        <footer><span class="quote__ava">🐕</span> Priya &amp; Nala</footer>
+      </blockquote>
+      <blockquote class="quote">
+        <div class="quote__stars">★★★★★</div>
+        <p>"The GPS tracking gave me total peace of mind. You can tell she genuinely loves the dogs — Cooper is obsessed with her."</p>
+        <footer><span class="quote__ava">🐶</span> Marcus &amp; Cooper</footer>
+      </blockquote>
+      <blockquote class="quote">
+        <div class="quote__stars">★★★★★</div>
+        <p>"Reliable, professional, and so warm. She noticed a limp before we did and flagged it — turned out to be a thorn. A vet-level eye."</p>
+        <footer><span class="quote__ava">🐩</span> Elena &amp; Coco</footer>
+      </blockquote>
+      <blockquote class="quote">
+        <div class="quote__stars">★★★★★</div>
+        <p>"We travel a lot and Yaya is the only sitter our two will settle for. The overnight care is worth every penny."</p>
+        <footer><span class="quote__ava">🐕‍🦺</span> The Okafor family</footer>
+      </blockquote>
+    </div>
+  </div>
+  <div class="quotes__dots" data-quotes-dots></div>
+</section>
+
+<!-- ===== PRICING ===== -->
+<section class="pricing section" id="pricing">
+  <header class="section__head">
+    <p class="kicker" data-reveal>Simple, honest pricing</p>
+    <h2 class="h2" data-reveal>Packages that fit your week</h2>
+    <p class="section__lead" data-reveal>No contracts. No hidden fees. Cancel free up to 12 hours ahead.</p>
+  </header>
+  <div class="pricing__grid">
+    <article class="plan" data-reveal data-tilt>
+      <h3>Taster</h3>
+      <div class="plan__price"><span>$</span>28<em>/walk</em></div>
+      <p class="plan__desc">Perfect for the occasional outing.</p>
+      <ul>
+        <li>✓ Single solo or group walk</li>
+        <li>✓ Photo report card</li>
+        <li>✓ GPS-tracked</li>
+        <li>✓ Flexible booking</li>
+      </ul>
+      <a href="#book" class="btn btn--ghost" data-cursor-hover>Book a walk</a>
+    </article>
+    <article class="plan plan--featured" data-reveal data-tilt>
+      <div class="plan__ribbon">Best value</div>
+      <h3>Weekly Wag</h3>
+      <div class="plan__price"><span>$</span>110<em>/week</em></div>
+      <p class="plan__desc">5 walks a week for the daily-routine pup.</p>
+      <ul>
+        <li>✓ 5 walks (save 20%)</li>
+        <li>✓ Priority scheduling</li>
+        <li>✓ Report card + weekly recap</li>
+        <li>✓ Same trusted walker</li>
+        <li>✓ Free monthly nail check</li>
+      </ul>
+      <a href="#book" class="btn btn--primary" data-cursor-hover>Start this week</a>
+    </article>
+    <article class="plan" data-reveal data-tilt>
+      <h3>Full Care</h3>
+      <div class="plan__price"><span>$</span>75<em>/night</em></div>
+      <p class="plan__desc">Sitting &amp; overnights while you're away.</p>
+      <ul>
+        <li>✓ Overnight stays</li>
+        <li>✓ Feeding &amp; meds</li>
+        <li>✓ Daily photo updates</li>
+        <li>✓ Home plant &amp; mail check</li>
+      </ul>
+      <a href="#book" class="btn btn--ghost" data-cursor-hover>Enquire now</a>
+    </article>
+  </div>
+</section>
+
+<!-- ===== SERVICE AREA ===== -->
+<section class="area section">
+  <div class="area__map" data-reveal>
+    <div class="area__grid-lines"></div>
+    <span class="pin pin--1"><i></i>Riverside Park</span>
+    <span class="pin pin--2"><i></i>Old Town</span>
+    <span class="pin pin--3"><i></i>Maple Heights</span>
+    <span class="pin pin--4"><i></i>Lakeside</span>
+    <span class="area__center">🏡</span>
+  </div>
+  <div class="area__text">
+    <p class="kicker" data-reveal>Where we roam</p>
+    <h2 class="h2" data-reveal>Serving your neighbourhood</h2>
+    <p data-reveal>Covering a friendly radius around town — Riverside, Old Town, Maple Heights, Lakeside and everywhere between. Not sure if you're in range? Just ask.</p>
+    <a href="#book" class="btn btn--primary" data-reveal data-cursor-hover>Check my area</a>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="faq section">
+  <header class="section__head">
+    <p class="kicker" data-reveal>Good questions</p>
+    <h2 class="h2" data-reveal>Frequently asked</h2>
+  </header>
+  <div class="faq__list">
+    <details class="faq__item" data-reveal>
+      <summary data-cursor-hover>Is Yaya insured and background-checked?<span>+</span></summary>
+      <p>Absolutely. Walks with Yaya is fully insured and bonded, and Yaya is background-checked and certified in canine first-aid &amp; CPR. Your pup and your home are in safe hands.</p>
+    </details>
+    <details class="faq__item" data-reveal>
+      <summary data-cursor-hover>Do you require vaccinations?<span>+</span></summary>
+      <p>Yes — for the safety of all our dogs we ask that pups are up to date on core vaccinations and flea/tick prevention before their first group walk.</p>
+    </details>
+    <details class="faq__item" data-reveal>
+      <summary data-cursor-hover>How do you access my home?<span>+</span></summary>
+      <p>Whatever you're comfortable with: a lockbox, a spare key, or a smart lock code. Keys are stored securely and never labelled with your address.</p>
+    </details>
+    <details class="faq__item" data-reveal>
+      <summary data-cursor-hover>What's your cancellation policy?<span>+</span></summary>
+      <p>Life happens! Cancel or reschedule free of charge up to 12 hours before a walk. Inside that window a 50% fee applies so I can hold your slot.</p>
+    </details>
+    <details class="faq__item" data-reveal>
+      <summary data-cursor-hover>My dog is reactive or nervous — can you help?<span>+</span></summary>
+      <p>Definitely. Reactive and shy dogs get solo walks and a slower, trust-first approach. We'll talk through triggers at the meet &amp; greet and go at your pup's pace.</p>
+    </details>
+    <details class="faq__item" data-reveal>
+      <summary data-cursor-hover>What happens in bad weather?<span>+</span></summary>
+      <p>We walk rain or shine (with towel-offs on the house). In genuinely unsafe conditions — storms, extreme heat — we switch to indoor play and potty breaks instead.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ===== BOOKING / CONTACT ===== -->
+<section class="book section" id="book">
+  <div class="book__panel" data-reveal>
+    <div class="book__intro">
+      <p class="kicker">Let's meet</p>
+      <h2 class="h2">Book a free meet &amp; greet</h2>
+      <p>Tell me about your best friend and I'll be in touch within 24 hours to set up a no-obligation hello.</p>
+      <ul class="book__contact">
+        <li data-cursor-hover>📞 <a href="tel:+15551234567">(555) 123-4567</a></li>
+        <li data-cursor-hover>✉️ <a href="mailto:hello@walkswithyaya.com">hello@walkswithyaya.com</a></li>
+        <li>🕒 Mon–Sat · 7am – 7pm</li>
+      </ul>
+    </div>
+    <form class="book__form" data-form novalidate>
+      <div class="field">
+        <input type="text" id="name" name="name" required placeholder=" " />
+        <label for="name">Your name</label>
+      </div>
+      <div class="field">
+        <input type="text" id="dog" name="dog" required placeholder=" " />
+        <label for="dog">Your dog's name</label>
+      </div>
+      <div class="field">
+        <input type="email" id="email" name="email" required placeholder=" " />
+        <label for="email">Email</label>
+      </div>
+      <div class="field">
+        <select id="service" name="service" required>
+          <option value="" disabled selected></option>
+          <option>Solo Walk</option>
+          <option>Group Adventure</option>
+          <option>Puppy Drop-In</option>
+          <option>Pet Sitting</option>
+          <option>Overnight Care</option>
+          <option>Trail Hike</option>
+        </select>
+        <label for="service" class="label--static">Service needed</label>
+      </div>
+      <div class="field field--full">
+        <textarea id="msg" name="msg" rows="3" placeholder=" "></textarea>
+        <label for="msg">Tell me about your pup (breed, energy, quirks)</label>
+      </div>
+      <button type="submit" class="btn btn--primary btn--block" data-cursor-hover>Send &amp; fetch my walker 🐾</button>
+      <p class="book__success" data-form-success hidden>🎉 Woohoo! Yaya's got your message and will fetch you back within 24 hours.</p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer__top">
+    <a href="#top" class="footer__brand" data-cursor-hover>🐾 Walks with <em>Yaya</em></a>
+    <p>Cinematic care for your best friend — one happy walk at a time.</p>
+    <div class="footer__social">
+      <a href="#" aria-label="Instagram" data-cursor-hover>📷</a>
+      <a href="#" aria-label="Facebook" data-cursor-hover>👍</a>
+      <a href="#" aria-label="TikTok" data-cursor-hover>🎵</a>
+    </div>
+  </div>
+  <nav class="footer__links">
+    <a href="#about" data-cursor-hover>About</a>
+    <a href="#services" data-cursor-hover>Services</a>
+    <a href="#report" data-cursor-hover>Report Card</a>
+    <a href="#pricing" data-cursor-hover>Pricing</a>
+    <a href="#book" data-cursor-hover>Book</a>
+  </nav>
+  <div class="footer__bottom">
+    <span>© <span data-year>2026</span> Walks with Yaya. Made with 🦴 &amp; muddy paws.</span>
+    <span>Insured · Bonded · Certified</span>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
