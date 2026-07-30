@@ -36,17 +36,20 @@ This repo is ready for GitHub Pages — no build step, all paths are relative (s
 works fine under a project subpath like `username.github.io/yayas_websites/`), and a
 `.nojekyll` file tells Pages to serve the files as-is.
 
-**Option A — GitHub Actions (recommended, automatic):**
-1. Merge this branch into `main`.
-2. In the repo, go to **Settings → Pages → Build and deployment → Source** and pick
-   **GitHub Actions**.
-3. Every push to `main` now runs `.github/workflows/deploy.yml` and publishes the
-   site. The live URL appears in the workflow run and under **Settings → Pages**.
+Go live in three clicks (this is a one-time setup — after this, every push to `main`
+re-publishes automatically):
 
-**Option B — Deploy from a branch (no Actions):**
-1. **Settings → Pages → Source → Deploy from a branch.**
-2. Choose your branch and the **`/ (root)`** folder, then **Save**.
-3. Wait ~1 minute; your site goes live at `https://<username>.github.io/<repo>/`.
+1. In the repo, open **Settings → Pages**.
+2. Under **Build and deployment → Source**, choose **Deploy from a branch**.
+3. Set **Branch: `main`** and folder **`/ (root)`**, then click **Save**.
+
+Wait ~1 minute and your site is live at
+`https://<username>.github.io/yayas_websites/`.
+
+> **Why this and not a CI workflow?** GitHub only lets the *repo owner* switch Pages
+> on for the first time — an automated token can't do that initial activation. Once
+> it's on, "Deploy from a branch" already rebuilds on every push, so no Actions
+> workflow is needed for a static site like this.
 
 > Using a custom domain? Add a `CNAME` file at the repo root containing your domain
 > (e.g. `walkswithyaya.com`) and configure it under **Settings → Pages**.
