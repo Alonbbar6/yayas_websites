@@ -201,26 +201,70 @@
     });
   });
 
-  /* ---------- Booking form ---------- */
+  /* ---------- Booking form ----------
+     Submits to a real endpoint (e.g. Formspree) when data-endpoint is set
+     to a real URL. Until then it runs in demo mode: validate + show the
+     success message without sending. */
   const form = $("[data-form]");
   if (form) {
-    form.addEventListener("submit", (e) => {
+    const btn = form.querySelector('button[type="submit"]');
+    const btnText = btn ? btn.textContent : "";
+    const success = $("[data-form-success]");
+    const endpoint = form.dataset.endpoint || form.getAttribute("action") || "";
+    const isConfigured = endpoint && !/YOUR_FORM_ID/.test(endpoint);
+
+    const showSuccess = () => {
+      if (success) {
+        success.hidden = false;
+        success.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      if (btn) btn.textContent = "Sent! 🐾";
+      setTimeout(() => { form.reset(); if (btn) btn.textContent = btnText; }, 2500);
+    };
+    const showError = (msg) => {
+      if (success) {
+        success.hidden = false;
+        success.textContent = "😔 " + msg;
+        success.style.background = "rgba(255,122,89,.15)";
+        success.style.borderColor = "#ff7a59";
+        success.style.color = "#ffd7c9";
+      }
+      if (btn) { btn.disabled = false; btn.textContent = btnText; }
+    };
+
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const success = $("[data-form-success]");
-      const required = $$("[required]", form);
+      // Honeypot: silently drop bots that fill the hidden _gotcha field.
+      if (form.querySelector('[name="_gotcha"]') && form.querySelector('[name="_gotcha"]').value) return;
+
       let ok = true;
-      required.forEach((f) => {
+      $$("[required]", form).forEach((f) => {
         const valid = f.checkValidity() && f.value.trim() !== "";
         f.style.borderColor = valid ? "" : "#ff7a59";
         if (!valid) ok = false;
       });
       if (!ok) return;
-      if (success) {
-        success.hidden = false;
-        success.scrollIntoView({ behavior: "smooth", block: "center" });
+
+      // Demo mode — no real endpoint configured yet.
+      if (!isConfigured) { showSuccess(); return; }
+
+      // Live mode — POST to the form service.
+      if (btn) { btn.disabled = true; btn.textContent = "Sending…"; }
+      try {
+        const res = await fetch(endpoint, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" },
+        });
+        if (res.ok) { if (btn) btn.disabled = false; showSuccess(); }
+        else {
+          const data = await res.json().catch(() => ({}));
+          showError((data.errors && data.errors[0] && data.errors[0].message) ||
+            "Something went wrong — please email or call instead.");
+        }
+      } catch (err) {
+        showError("Network hiccup — please email or call instead.");
       }
-      form.querySelector('button[type="submit"]').textContent = "Sent! 🐾";
-      setTimeout(() => form.reset(), 400);
     });
   }
 })();

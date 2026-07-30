@@ -55,16 +55,38 @@ Wait ~1 minute and your site is live at
 > (e.g. `walkswithyaya.com`) and configure it under **Settings → Pages**.
 
 ## 🎨 Make it yours
-- **Business name / tagline** — search `Walks with Yaya` in `index.html`
-- **Contact details** — phone, email & hours in the Booking + Footer sections
-- **Prices, services, service area, FAQ** — all plain text in `index.html`
-- **Colours** — the palette lives in `:root` at the top of `css/styles.css`
-- **Photos** — swap the emoji/gradient placeholders (hero, About, Gallery, Report Card) for real photos of Yaya and her happy clients for maximum impact
-- **Booking form** — currently shows a success message client-side; connect it to Formspree, Netlify Forms, or an email service to receive real enquiries
+Open `index.html` and **search for the word `REPLACE`** — every spot that needs
+your real details is marked, and there's a checklist at the very top of the
+`<body>`. The essentials:
+
+- **Photos (biggest impact)** — swap the emoji/gradient placeholders (Hero, About, Gallery, Report Card) for real photos of Yaya and her happy clients. Marked `REPLACE PHOTO`.
+- **Contact details** — phone, email & hours in the Booking section (and again in the structured-data block in `<head>`).
+- **Social links** — the three footer icons and the `sameAs` list in `<head>`.
+- **Business name / tagline / prices / services / service area / reviews** — all plain text in `index.html`.
+- **Colours** — the palette lives in `:root` at the top of `css/styles.css`.
+- **Privacy & booking policies** — edit `privacy.html` (linked in the footer) and fill in the placeholders.
+
+### 📨 Make the booking form deliver real enquiries
+The form works in **demo mode** out of the box (it validates and shows a success
+message but doesn't send). To receive real enquiries by email:
+
+1. Create a free form at [Formspree](https://formspree.io) (or Netlify Forms / Getform). You'll get an endpoint like `https://formspree.io/f/abcdwxyz`.
+2. In `index.html`, find the `<form class="book__form" …>` and paste that endpoint into **both** the `action` and `data-endpoint` attributes (replacing `YOUR_FORM_ID`).
+
+That's it — the form then submits by AJAX, shows the success message, and emails Yaya. It also has a hidden honeypot field to deflect spam bots.
+
+### 🔎 SEO & sharing
+- Open Graph / Twitter tags and `LocalBusiness` structured data are in `<head>` — update the URLs, phone, email, area and social links there.
+- A ready-made **social-share image** lives at `assets/social-card.png` (regenerate it by editing the source in the repo's build notes, or just replace it with a real photo-based 1200×630 image).
+- Update the domain in `<head>`, `sitemap.xml` and `robots.txt` if you use a custom domain, then submit the sitemap in [Google Search Console](https://search.google.com/search-console) so Yaya shows up in searches.
 
 ## 📁 Structure
 ```
-index.html        # all content & markup
-css/styles.css    # design system + animations
-js/main.js        # cursor, parallax, reveals, counters, slider, form
+index.html          # all content & markup + SEO/social tags
+privacy.html        # privacy & booking/cancellation policies
+css/styles.css      # design system + animations
+js/main.js          # cursor, parallax, reveals, counters, slider, form
+assets/social-card.png  # 1200×630 link-preview image
+sitemap.xml, robots.txt # search-engine discoverability
+.nojekyll           # tells GitHub Pages to serve files as-is
 ```
