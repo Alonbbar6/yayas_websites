@@ -24,12 +24,32 @@ A fast, dependency-free static site (perfect for GitHub Pages / Netlify) with:
 ## 🎬 Cinematic touches
 Custom paw cursor · scroll progress bar · reveal-on-scroll · 3D card tilt · animated paw trails · counters · sticky shrinking nav · respects `prefers-reduced-motion` and is fully responsive.
 
-## 🚀 Run it
+## 🚀 Run it locally
 Just open `index.html` — no build step. To serve locally:
 
 ```bash
 python3 -m http.server 8000   # then visit http://localhost:8000
 ```
+
+## 🌐 Deploy to GitHub Pages
+This repo is ready for GitHub Pages — no build step, all paths are relative (so it
+works fine under a project subpath like `username.github.io/yayas_websites/`), and a
+`.nojekyll` file tells Pages to serve the files as-is.
+
+**Option A — GitHub Actions (recommended, automatic):**
+1. Merge this branch into `main`.
+2. In the repo, go to **Settings → Pages → Build and deployment → Source** and pick
+   **GitHub Actions**.
+3. Every push to `main` now runs `.github/workflows/deploy.yml` and publishes the
+   site. The live URL appears in the workflow run and under **Settings → Pages**.
+
+**Option B — Deploy from a branch (no Actions):**
+1. **Settings → Pages → Source → Deploy from a branch.**
+2. Choose your branch and the **`/ (root)`** folder, then **Save**.
+3. Wait ~1 minute; your site goes live at `https://<username>.github.io/<repo>/`.
+
+> Using a custom domain? Add a `CNAME` file at the repo root containing your domain
+> (e.g. `walkswithyaya.com`) and configure it under **Settings → Pages**.
 
 ## 🎨 Make it yours
 - **Business name / tagline** — search `Walks with Yaya` in `index.html`
