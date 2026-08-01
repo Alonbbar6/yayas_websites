@@ -1,10 +1,15 @@
 # Walks with Yaya 🐾
 
-A cinematic, single-page website for **Yaya's dog walking & pet care business** — built to win a dog owner's trust in seconds and make booking effortless.
+Two things live in this repo:
 
-## ✨ What's inside
+- **The marketing site** (repo root) — a cinematic, dependency-free static page. Live at `/`.
+- **The app** (`app/`) — Yaya's dashboard for bookings, running a walk with live GPS + photo report cards, and the client-facing link that shows the live map and finished report. Live at `/app/`.
 
-A fast, dependency-free static site (perfect for GitHub Pages / Netlify) with:
+Yaya works **cash-only** and books by phone, so there's no online payment or self-service booking anywhere — the site's contact form just captures a name, phone, and best time to call, so Yaya can reach out herself.
+
+## ✨ Marketing site
+
+A fast, dependency-free static site with:
 
 | Section | Purpose (from a dog-walking perspective) |
 |---|---|
@@ -13,80 +18,102 @@ A fast, dependency-free static site (perfect for GitHub Pages / Netlify) with:
 | **About Yaya** | Personal story that builds the human connection + credentials |
 | **Services** | Solo walks, group adventures, puppy drop-ins, pet sitting, overnight care, trail hikes |
 | **How it works** | Meet & greet → book → GPS walk → report card |
-| **🌟 Pup Report Card** | The differentiator — a phone mockup showing photos, an animated GPS route, potty/water log & a note after every walk |
+| **🌟 Pup Report Card** | A phone mockup previewing the real thing — see `app/` for the live version generated from an actual walk |
 | **Gallery** | The "happy tails" wall |
 | **Testimonials** | Auto-playing review slider |
-| **Pricing** | Three honest, no-contract packages |
+| **Pricing** | Three honest, no-contract packages (cash) |
 | **Service area** | Animated map with pulsing coverage pins |
 | **FAQ** | Vaccinations, keys, cancellations, reactive dogs, weather |
-| **Booking** | Floating-label meet-&-greet request form |
+| **Lead form** | "Have Yaya call me" — name, phone, best time to call. No booking or payment happens here. |
 
-## 🎬 Cinematic touches
-Custom paw cursor · scroll progress bar · reveal-on-scroll · 3D card tilt · animated paw trails · counters · sticky shrinking nav · respects `prefers-reduced-motion` and is fully responsive.
+## 🐾 The app (`app/`)
+
+A Vite + TypeScript PWA talking to a shared Supabase backend:
+
+- **Yaya's dashboard** (`app/` → `/app/`) — sign in with a magic link, see today's and next-7-days' bookings, add clients/dogs/bookings, work the leads inbox, and run a walk: start/end, live GPS breadcrumb trail on a map, potty/water/note logging, camera photo capture. All from one phone-friendly screen (installable as a PWA).
+- **Client tracking page** (`app/track.html` → `/app/track.html?w=<token>`) — no login. Yaya shares this link when a walk starts; it shows a live map while the walk is active, then flips to the finished report card (route, photos, log) once it ends.
 
 ## 🚀 Run it locally
-Just open `index.html` — no build step. To serve locally:
 
+**Marketing site** — no build step:
 ```bash
 python3 -m http.server 8000   # then visit http://localhost:8000
 ```
 
-## 🌐 Deploy to GitHub Pages
-This repo is ready for GitHub Pages — no build step, all paths are relative (so it
-works fine under a project subpath like `username.github.io/yayas_websites/`), and a
-`.nojekyll` file tells Pages to serve the files as-is.
+**App** — needs a Supabase project (see Setup below) and Node 20+:
+```bash
+cd app
+cp .env.example .env.local   # fill in your Supabase URL + anon key
+npm install
+npm run dev
+```
 
-Go live in three clicks (this is a one-time setup — after this, every push to `main`
-re-publishes automatically):
+## 🔧 Setup: connect the app to Supabase
 
-1. In the repo, open **Settings → Pages**.
-2. Under **Build and deployment → Source**, choose **Deploy from a branch**.
-3. Set **Branch: `main`** and folder **`/ (root)`**, then click **Save**.
+The code is complete but inert until it has a real Supabase project — this is the one-time setup:
 
-Wait ~1 minute and your site is live at
-`https://<username>.github.io/yayas_websites/`.
+1. **Create a project** at [supabase.com](https://supabase.com) (free tier is plenty for one operator). Note the **Project URL** and **anon public key** from Settings → API.
+2. **Run the migrations**: Settings → SQL Editor, run `supabase/migrations/0001_init.sql` then `supabase/migrations/0002_storage.sql`, in order. (Or via the Supabase CLI: `supabase link` then `supabase db push`.)
+3. **Create Yaya's account**: Authentication → Users → **Add user** → invite by her real email. This sends her a sign-in email and creates the account without needing public sign-up.
+4. **Add her to the admin allowlist** — the schema locks all admin access behind this table (auth alone isn't enough: with sign-ups left on, anyone could request a magic link and get in). Run in the SQL Editor:
+   ```sql
+   insert into admins (email) values ('yaya@her-real-email.com');
+   ```
+6. **Lock down sign-ups** now that her account exists: Authentication → Settings → turn off "Allow new users to sign up". Nobody else can create an account after this.
+7. **Wire the marketing site's lead form**: in `index.html`, replace `REPLACE_SUPABASE_URL` and `REPLACE_SUPABASE_ANON_KEY` near the top of `<head>` with your real values (the anon key is meant to be public — row-level security limits it to inserting a lead, nothing else).
+8. **Wire the app build**: add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` as **GitHub Actions repo secrets** (Settings → Secrets and variables → Actions) — the deploy workflow reads them at build time.
+9. **Switch GitHub Pages to build via Actions**: Settings → Pages → Build and deployment → Source → **GitHub Actions**. (It's currently set to "Deploy from a branch"; the included workflow needs "GitHub Actions" instead, since it now needs to run `npm run build` for the app.)
+10. Push to `main` — the workflow builds the app and republishes both the site and the app together.
 
-> **Why this and not a CI workflow?** GitHub only lets the *repo owner* switch Pages
-> on for the first time — an automated token can't do that initial activation. Once
-> it's on, "Deploy from a branch" already rebuilds on every push, so no Actions
-> workflow is needed for a static site like this.
+### Optional: text Yaya when a new lead comes in
 
-> Using a custom domain? Add a `CNAME` file at the repo root containing your domain
-> (e.g. `walkswithyaya.com`) and configure it under **Settings → Pages**.
+`supabase/functions/notify-lead` sends Yaya a text via Twilio when someone submits the lead form. It's a safe no-op until configured:
 
-## 🎨 Make it yours
+1. Get a Twilio account, phone number, Account SID, and Auth Token.
+2. Deploy the function: `supabase functions deploy notify-lead`.
+3. Set its secrets: `supabase secrets set TWILIO_ACCOUNT_SID=... TWILIO_AUTH_TOKEN=... TWILIO_FROM_NUMBER=+1... YAYA_PHONE_NUMBER=+1...`
+4. Database → Webhooks → create one on `leads`, event `INSERT`, pointing at the deployed function's URL.
+
+## 🎨 Make the marketing site yours
+
 Open `index.html` and **search for the word `REPLACE`** — every spot that needs
 your real details is marked, and there's a checklist at the very top of the
-`<body>`. The essentials:
+`<body>`:
 
 - **Photos (biggest impact)** — swap the emoji/gradient placeholders (Hero, About, Gallery, Report Card) for real photos of Yaya and her happy clients. Marked `REPLACE PHOTO`.
 - **Contact details** — phone, email & hours in the Booking section (and again in the structured-data block in `<head>`).
-- **Social links** — the three footer icons and the `sameAs` list in `<head>`.
+- **Social links** — the three footer icons and the `sameAs` list in `<head>`, plus the "find me on Instagram/Facebook" line next to the contact list.
 - **Business name / tagline / prices / services / service area / reviews** — all plain text in `index.html`.
 - **Colours** — the palette lives in `:root` at the top of `css/styles.css`.
 - **Privacy & booking policies** — edit `privacy.html` (linked in the footer) and fill in the placeholders.
 
-### 📨 Make the booking form deliver real enquiries
-The form works in **demo mode** out of the box (it validates and shows a success
-message but doesn't send). To receive real enquiries by email:
-
-1. Create a free form at [Formspree](https://formspree.io) (or Netlify Forms / Getform). You'll get an endpoint like `https://formspree.io/f/abcdwxyz`.
-2. In `index.html`, find the `<form class="book__form" …>` and paste that endpoint into **both** the `action` and `data-endpoint` attributes (replacing `YOUR_FORM_ID`).
-
-That's it — the form then submits by AJAX, shows the success message, and emails Yaya. It also has a hidden honeypot field to deflect spam bots.
-
 ### 🔎 SEO & sharing
 - Open Graph / Twitter tags and `LocalBusiness` structured data are in `<head>` — update the URLs, phone, email, area and social links there.
-- A ready-made **social-share image** lives at `assets/social-card.png` (regenerate it by editing the source in the repo's build notes, or just replace it with a real photo-based 1200×630 image).
-- Update the domain in `<head>`, `sitemap.xml` and `robots.txt` if you use a custom domain, then submit the sitemap in [Google Search Console](https://search.google.com/search-console) so Yaya shows up in searches.
+- A ready-made **social-share image** lives at `assets/social-card.png` — replace it with a real photo-based 1200×630 image.
+- Update the domain in `<head>`, `sitemap.xml` and `robots.txt` if you use a custom domain, then submit the sitemap in [Google Search Console](https://search.google.com/search-console).
+
+## ⚠️ Known limitations (v1)
+
+- **iOS backgrounding**: Safari suspends GPS updates when the walk screen isn't in the foreground. Yaya keeps `/app/` open (like a stopwatch) during a walk rather than it tracking silently in her pocket.
+- **Photo storage is public-read**: report-card links are unlisted (token-gated) rather than access-controlled. Fine for an MVP; revisit if photo privacy needs to be stronger than "unguessable link."
+- **No recurring-booking automation**: `recurring_note` on a booking is a free-text reminder (e.g. "every Tue/Thu") — Yaya still adds each occurrence by hand. Worth a `pg_cron` job later if the manual step becomes a real chore.
+- **Single operator only**: the data model assumes one walker (Yaya). Adding other walkers would need walker accounts and job assignment — a deliberate scope decision, not an oversight.
 
 ## 📁 Structure
 ```
-index.html          # all content & markup + SEO/social tags
-privacy.html        # privacy & booking/cancellation policies
-css/styles.css      # design system + animations
-js/main.js          # cursor, parallax, reveals, counters, slider, form
-assets/social-card.png  # 1200×630 link-preview image
-sitemap.xml, robots.txt # search-engine discoverability
-.nojekyll           # tells GitHub Pages to serve files as-is
+index.html, privacy.html      # marketing site markup
+css/styles.css, js/main.js    # marketing site styles & behavior
+assets/, sitemap.xml, robots.txt, .nojekyll
+
+app/                           # Vite + TS PWA (dashboard + tracking page)
+  index.html, track.html
+  src/                         # supabase client, api layer, views
+  vite.config.ts
+
+supabase/
+  migrations/                  # schema + storage bucket, run in order
+  functions/notify-lead/       # optional Twilio SMS on new lead
+
+.github/workflows/deploy.yml   # builds app/, combines with the static site,
+                                # deploys both to GitHub Pages
 ```

@@ -201,17 +201,21 @@
     });
   });
 
-  /* ---------- Booking form ----------
-     Submits to a real endpoint (e.g. Formspree) when data-endpoint is set
-     to a real URL. Until then it runs in demo mode: validate + show the
-     success message without sending. */
+  /* ---------- Lead form ("have Yaya call me") ----------
+     Saves to the same Supabase project as the /app/ dashboard when
+     window.YAYA_SUPABASE_URL / YAYA_SUPABASE_ANON_KEY are set (see <head>).
+     Until then it runs in demo mode: validate + show the success message
+     without saving. Yaya calls the client back — there's no online booking
+     or payment, by design (cash-only business). */
   const form = $("[data-form]");
   if (form) {
     const btn = form.querySelector('button[type="submit"]');
     const btnText = btn ? btn.textContent : "";
     const success = $("[data-form-success]");
-    const endpoint = form.dataset.endpoint || form.getAttribute("action") || "";
-    const isConfigured = endpoint && !/YOUR_FORM_ID/.test(endpoint);
+    const isConfigured = window.YAYA_SUPABASE_URL &&
+      !/REPLACE_SUPABASE/.test(window.YAYA_SUPABASE_URL) &&
+      window.YAYA_SUPABASE_ANON_KEY &&
+      !/REPLACE_SUPABASE/.test(window.YAYA_SUPABASE_ANON_KEY);
 
     const showSuccess = () => {
       if (success) {
@@ -245,25 +249,24 @@
       });
       if (!ok) return;
 
-      // Demo mode — no real endpoint configured yet.
+      // Demo mode — no Supabase project configured yet.
       if (!isConfigured) { showSuccess(); return; }
 
-      // Live mode — POST to the form service.
       if (btn) { btn.disabled = true; btn.textContent = "Sending…"; }
       try {
-        const res = await fetch(endpoint, {
-          method: "POST",
-          body: new FormData(form),
-          headers: { Accept: "application/json" },
+        const { createClient } = await import("https://esm.sh/@supabase/supabase-js@2");
+        const supabase = createClient(window.YAYA_SUPABASE_URL, window.YAYA_SUPABASE_ANON_KEY);
+        const fd = new FormData(form);
+        const { error } = await supabase.from("leads").insert({
+          name: fd.get("name"),
+          phone: fd.get("phone"),
+          best_time_to_call: fd.get("best_time") || null,
         });
-        if (res.ok) { if (btn) btn.disabled = false; showSuccess(); }
-        else {
-          const data = await res.json().catch(() => ({}));
-          showError((data.errors && data.errors[0] && data.errors[0].message) ||
-            "Something went wrong — please email or call instead.");
-        }
+        if (error) throw error;
+        if (btn) btn.disabled = false;
+        showSuccess();
       } catch (err) {
-        showError("Network hiccup — please email or call instead.");
+        showError("Something went wrong — please call or text instead.");
       }
     });
   }

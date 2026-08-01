@@ -69,6 +69,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="css/styles.css" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%BE%3C/text%3E%3C/svg%3E" />
+
+<!-- ============================================================
+     LEAD FORM BACKEND — the "have Yaya call me" form below saves to a
+     Supabase project shared with the /app/ dashboard. 👉 REPLACE both
+     values with your project's (see README.md "Setup" section). Both
+     are meant to be public — the anon key only allows inserting a lead,
+     nothing else (enforced by row-level security on the leads table).
+     ============================================================ -->
+<script>
+  window.YAYA_SUPABASE_URL = "REPLACE_SUPABASE_URL";
+  window.YAYA_SUPABASE_ANON_KEY = "REPLACE_SUPABASE_ANON_KEY";
+</script>
 </head>
 <body>
 <!-- =================================================================
@@ -83,8 +95,8 @@
      2. CONTACT: phone, email & opening hours — in the Booking section
         and again in the structured-data block in <head>.
      3. SOCIAL LINKS: the three footer icons (and "sameAs" in <head>).
-     4. BOOKING FORM: paste your Formspree endpoint — see the comment
-        above the <form> in the Booking section.
+     4. LEAD FORM: paste your Supabase project URL & anon key near the
+        top of <head> — see README.md for full setup steps.
      5. BUSINESS NAME / TAGLINE / PRICES / SERVICE AREA / REVIEWS:
         all plain text below — edit freely.
      6. SITE URL: update the canonical/OG URLs in <head>, plus
@@ -536,62 +548,43 @@
     <div class="book__intro">
       <p class="kicker">Let's meet</p>
       <h2 class="h2">Book a free meet &amp; greet</h2>
-      <p>Tell me about your best friend and I'll be in touch within 24 hours to set up a no-obligation hello.</p>
+      <p>Leave your name and number and I'll call you back within 24 hours — no forms, no online booking, just a real conversation. <strong>Cash only</strong> for services.</p>
       <!-- 👉 REPLACE with Yaya's real phone (in tel: and text) and email (in mailto: and text). -->
       <ul class="book__contact">
         <li data-cursor-hover>📞 <a href="tel:+15551234567">(555) 123-4567</a></li>
         <li data-cursor-hover>✉️ <a href="mailto:hello@walkswithyaya.com">hello@walkswithyaya.com</a></li>
         <li>🕒 Mon–Sat · 7am – 7pm</li>
+        <li>Prefer social? Find me on Instagram or Facebook via the icons below and send a DM. 👇</li>
       </ul>
     </div>
 
     <!-- ============================================================
-         BOOKING FORM — how to make it deliver real enquiries:
-         1. Create a free form at https://formspree.io (or use Netlify
-            Forms / Getform). It gives you an endpoint like
-            https://formspree.io/f/abcdwxyz
-         2. Paste that endpoint into BOTH the `action` attribute and the
-            `data-endpoint` attribute below.
+         LEAD FORM — this is a "call me back" form, not online booking
+         (Yaya works cash-only and books by phone). Submitted leads go
+         straight into the Supabase "leads" table for the dashboard at
+         /app/. To go live:
+         1. Create a Supabase project (see /README.md for the full setup).
+         2. Replace REPLACE_SUPABASE_URL and REPLACE_SUPABASE_ANON_KEY
+            below with your project's values.
          Until then the form runs in demo mode: it validates and shows the
-         success message but does not send anywhere.
+         success message but doesn't save anywhere.
          ============================================================ -->
-    <form class="book__form" data-form
-          action="https://formspree.io/f/YOUR_FORM_ID"
-          data-endpoint="https://formspree.io/f/YOUR_FORM_ID"
-          method="POST" novalidate>
-      <!-- Nicer email subject + reply-to for Formspree -->
-      <input type="hidden" name="_subject" value="🐾 New meet & greet request from the website" />
+    <form class="book__form" data-form novalidate>
       <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
       <div class="field">
         <input type="text" id="name" name="name" required placeholder=" " />
         <label for="name">Your name</label>
       </div>
       <div class="field">
-        <input type="text" id="dog" name="dog" required placeholder=" " />
-        <label for="dog">Your dog's name</label>
-      </div>
-      <div class="field">
-        <input type="email" id="email" name="email" required placeholder=" " />
-        <label for="email">Email</label>
-      </div>
-      <div class="field">
-        <select id="service" name="service" required>
-          <option value="" disabled selected></option>
-          <option>Solo Walk</option>
-          <option>Group Adventure</option>
-          <option>Puppy Drop-In</option>
-          <option>Pet Sitting</option>
-          <option>Overnight Care</option>
-          <option>Trail Hike</option>
-        </select>
-        <label for="service" class="label--static">Service needed</label>
+        <input type="tel" id="phone" name="phone" required placeholder=" " />
+        <label for="phone">Phone number</label>
       </div>
       <div class="field field--full">
-        <textarea id="msg" name="msg" rows="3" placeholder=" "></textarea>
-        <label for="msg">Tell me about your pup (breed, energy, quirks)</label>
+        <input type="text" id="best_time" name="best_time" placeholder=" " />
+        <label for="best_time">Best time to call</label>
       </div>
-      <button type="submit" class="btn btn--primary btn--block" data-cursor-hover>Send &amp; fetch my walker 🐾</button>
-      <p class="book__success" data-form-success hidden>🎉 Woohoo! Yaya's got your message and will fetch you back within 24 hours.</p>
+      <button type="submit" class="btn btn--primary btn--block" data-cursor-hover>Have Yaya call me 🐾</button>
+      <p class="book__success" data-form-success hidden>🎉 Got it! Yaya will call you back within 24 hours.</p>
     </form>
   </div>
 </section>
